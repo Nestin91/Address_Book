@@ -49,17 +49,16 @@ void listContacts(AddressBook *addressBook)
         printf("Email: %s\n\n", addressBook -> contacts[i].email);
     }
     
-    //printf("%s\n", addressBook->contacts[addressBook->contactCount].name);
 }
 
 //initializing dummyContacts from populate.c
 void initialize(AddressBook *addressBook) 
 {
     addressBook->contactCount = 0;
-    populateAddressBook(addressBook);
+    //populateAddressBook(addressBook);
 
     // Load contacts from file during initialization (After files)
-    //loadContactsFromFile(addressBook);
+    loadContactsFromFile(addressBook);
 }
 
 void saveAndExit(AddressBook *addressBook) 
@@ -536,7 +535,7 @@ void deleteContact(AddressBook *addressBook)
         return;
     }
 
-    if(f_count >1)
+    if(f_count > 1)
     {
         printf("Multiple contacts found. Please select one:\n");
         for(i = 0; i <f_count; i++)

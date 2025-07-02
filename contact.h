@@ -27,6 +27,7 @@ void deleteContact(AddressBook *addressBook);
 void listContacts(AddressBook *addressBook);
 void swapContacts(Contact *a, Contact *b);
 void initialize(AddressBook *addressBook);
-void saveContactsToFile(AddressBook *AddressBook);
+void saveContactsToFile(AddressBook *addressBook);
+void saveAndExit(AddressBook *addressBook);
 
 #endif
