@@ -1,2 +1,2 @@
-# Address_Book
-Project on C Programming done Emertxe Information Technologies
+# Address_Book_Project
+Project on C Programming done at Emertxe Information Technologies
