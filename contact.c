@@ -176,20 +176,57 @@ int validate_phone(AddressBook *addressBook, char *number, int flag)
 int validate_email(AddressBook *addressBook, char *mail, int flag)
 {
     int i;
+    int at_count = 0;
+    int dot_count = 0;
+    int com_count = 0;
     int at_i = -1;
     int dot_i = -1;
 
-    //checking position of '@' and '.'
-    for (i = 0; i < strlen(mail); i++)
+    // checking for capital letters
+    for (i = 0; i < strlen(mail); i++) 
     {
-        if (mail[i] == '@')
+        if (mail[i] >= 'A' && mail[i] <= 'Z') 
         {
-            at_i = i;
+            printf("Invalid Email ID!!! Capital letters are not allowed\n");
+            return 0;
         }
-        else if (mail[i] == '.')
+    }
+
+    // checking position of '@' and '.' and count of '@' and '.'
+    for (i = 0; i < strlen(mail); i++) 
+    {
+        if (mail[i] == '@') 
         {
+            at_count++;
+            at_i = i;
+        } 
+        else if (mail[i] == '.') 
+        {
+            dot_count++;
             dot_i = i;
         }
+    }
+
+    // check for multiple '@'
+    if (at_count > 1) 
+    {
+        printf("Invalid Email ID!!! Multiple '@' not allowed\n");
+        return 0;
+    }
+
+    // check for multiple '.' after '@'
+    int dot_after_at = 0;
+    for (i = at_i + 1; i < strlen(mail); i++) 
+    {
+        if (mail[i] == '.') 
+        {
+            dot_after_at++;
+        }
+    }
+    if (dot_after_at > 1) 
+    {
+        printf("Invalid Email ID!!! Multiple '.' after '@' not allowed\n");
+        return 0;
     }
 
     // check if email ends with ".com"
@@ -199,32 +236,43 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
         return 0;
     }
 
-    //checking for invalid case
+    // check for ".com" in middle of email
+    for (i = 0; i < strlen(mail) - 4; i++) 
+    {
+        if (strncmp(mail + i, ".com", 4) == 0) 
+        {
+            com_count++;
+        }
+    }
+    if (com_count > 0) 
+    {
+        printf("Invalid Email ID!!! '.com' should be at the end\n");
+        return 0;
+    }
+
+    // checking for invalid case
     if (at_i == -1 || dot_i == -1 || dot_i < at_i || dot_i > strlen(mail) - 4) 
     {
         printf("Invalid Email ID!!! Enter Again..\n");
         return 0;
     }
 
-    //checking for duplicate
-    //this validation is only needed while creating a contact
-    if(flag == 1)
+    // checking for duplicate
+    // this validation is only needed while creating a contact
+    if (flag == 1) 
     {
-        for (i = 0; i < addressBook -> contactCount; i++)
+        for (i = 0; i < addressBook->contactCount; i++) 
         {
-            if (strcmp(addressBook -> contacts[i].email, mail) == 0)
+            if (strcmp(addressBook->contacts[i].email, mail) == 0) 
             {
                 printf("Email already exist in address book!!!\n");
                 return 0;
             }
         }
     }
-    else
-    {
-        return 1;
-    }
-    
+
     return 1;
+
 }
 
 void searchContact(AddressBook *addressBook) 
