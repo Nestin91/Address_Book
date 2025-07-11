@@ -55,8 +55,9 @@ void listContacts(AddressBook *addressBook)
     }
     
     //Listing every contacts in address book in alphabetical order
-    printf("Contacts in Address Book\n");
-    printf("************************\n");
+    printf("\n******************************************************\n");
+	printf("              List Contacts\n");
+	printf("******************************************************\n");
     for (i = 0; i < addressBook -> contactCount; i++)
     {
         printf("Contact %d :\n", i + 1);
@@ -86,11 +87,14 @@ void saveAndExit(AddressBook *addressBook)
 
 void createContact(AddressBook *addressBook)
 {
+    printf("\n******************************************************\n");
+	printf("                Create Contact\n");
+	printf("******************************************************\n");
     /* Define the logic to create a Contacts */
     //condition to whether the addressbook is FULL, if FULL can't add anymore contact
     if (addressBook -> contactCount >= MAX_CONTACTS)
     {
-        printf("Address Book is FULL, Cannot add more contacts");
+        printf("Address Book is FULL, Cannot add more contacts\n\n");
         return;
     }
     
@@ -129,7 +133,7 @@ void createContact(AddressBook *addressBook)
     
     // Increment the contact count.
     addressBook -> contactCount++;
-    printf("Congrats, New Contact Created!!!");
+    printf("Congrats, New Contact Created!!!\n\n");
 }
 
 int validate_phone(AddressBook *addressBook, char *number, int flag)
@@ -139,7 +143,7 @@ int validate_phone(AddressBook *addressBook, char *number, int flag)
     //checking whether user entered 10 characters or not
     if(strlen(number) != 10)
     {
-        printf("Invalid phone number!! Enter Again...\n");
+        printf("Invalid phone number!! Enter Again...\n\n");
         return 0;
     }
 
@@ -148,7 +152,7 @@ int validate_phone(AddressBook *addressBook, char *number, int flag)
     {
         if (number[i] < '0' || number[i] > '9')
             {
-                printf("Invalid phone number!! Enter Again...\n");
+                printf("Invalid phone number!! Enter Again...\n\n");
                 return 0;
             }
     }
@@ -160,7 +164,7 @@ int validate_phone(AddressBook *addressBook, char *number, int flag)
         {
             if (strcmp(addressBook -> contacts[i].phone, number) == 0)
             {
-                printf("Phone number already exist in address book!!!\n");
+                printf("Phone number already exist in address book!!!\n\n");
                 return 0;
             }    
         }
@@ -187,7 +191,7 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
     {
         if (mail[i] >= 'A' && mail[i] <= 'Z') 
         {
-            printf("Invalid Email ID!!! Capital letters are not allowed\n");
+            printf("Invalid Email ID!!! Capital letters are not allowed\n\n");
             return 0;
         }
     }
@@ -210,7 +214,7 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
     // check for multiple '@'
     if (at_count > 1) 
     {
-        printf("Invalid Email ID!!! Multiple '@' not allowed\n");
+        printf("Invalid Email ID!!! Multiple '@' not allowed\n\n");
         return 0;
     }
 
@@ -225,14 +229,14 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
     }
     if (dot_after_at > 1) 
     {
-        printf("Invalid Email ID!!! Multiple '.' after '@' not allowed\n");
+        printf("Invalid Email ID!!! Multiple '.' after '@' not allowed\n\n");
         return 0;
     }
 
     // check if email ends with ".com"
     if (strlen(mail) < 4 || strcmp(mail + strlen(mail) - 4, ".com") != 0) 
     {
-        printf("Invalid Email ID!!! Email should end with .com\n");
+        printf("Invalid Email ID!!! Email should end with .com\n\n");
         return 0;
     }
 
@@ -246,14 +250,20 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
     }
     if (com_count > 0) 
     {
-        printf("Invalid Email ID!!! '.com' should be at the end\n");
+        printf("Invalid Email ID!!! '.com' should be at the end\n\n");
         return 0;
+    }
+
+    if (dot_i == at_i + 1) 
+    {
+            printf("Invalid Email ID!!! At least one character required before '.com'\n\n");
+            return 0;
     }
 
     // checking for invalid case
     if (at_i == -1 || dot_i == -1 || dot_i < at_i || dot_i > strlen(mail) - 4) 
     {
-        printf("Invalid Email ID!!! Enter Again..\n");
+        printf("Invalid Email ID!!! Enter Again..\n\n");
         return 0;
     }
 
@@ -265,7 +275,7 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
         {
             if (strcmp(addressBook->contacts[i].email, mail) == 0) 
             {
-                printf("Email already exist in address book!!!\n");
+                printf("Email already exist in address book!!!\n\n");
                 return 0;
             }
         }
@@ -277,6 +287,9 @@ int validate_email(AddressBook *addressBook, char *mail, int flag)
 
 void searchContact(AddressBook *addressBook) 
 {
+    printf("\n******************************************************\n");
+	printf("                Search Contact\n");
+	printf("******************************************************\n");
     /* Define the logic for search */
     int choose, found = 0;
     char search[50];
@@ -327,7 +340,7 @@ void searchContact(AddressBook *addressBook)
 
         if (matched == 0)
         {
-            printf("Contact not Found!!!\n");
+            printf("Contact not Found!!!\n\n");
         }
         else
         {
@@ -358,7 +371,7 @@ void searchContact(AddressBook *addressBook)
 
         if (!found)
         {
-            printf("Contact not Found!!!\n");
+            printf("Contact not Found!!!\n\n");
         }
         break;
 
@@ -385,22 +398,25 @@ void searchContact(AddressBook *addressBook)
         
         if (!found)
         {
-            printf("Contact not Found!!!\n");
+            printf("Contact not Found!!!\n\n");
         }
         break;
 
     default:
-        printf("Wrong Choice!!");
+        printf("Wrong Choice!!\n\n");
         break;
     }
 }
 
 void editContact(AddressBook *addressBook)
 {
+    printf("\n******************************************************\n");
+	printf("                Edit Contact\n");
+	printf("******************************************************\n");
     /* Define the logic for Editcontact */
     if (addressBook -> contactCount == 0)
     {
-        printf("Address Book is empty!!!\n");
+        printf("Address Book is empty!!!\n\n");
         return;
     }
     
@@ -422,7 +438,7 @@ void editContact(AddressBook *addressBook)
     //condition for unavailable case
     if(f_count == 0)
     {
-        printf("Contact not found!!!\n");
+        printf("Contact not found!!!\n\n");
         return;
     }
 
@@ -430,7 +446,7 @@ void editContact(AddressBook *addressBook)
     //List contacts if multiple contacts are availble
     if(f_count > 1)
     {
-        printf("Multiple contacts Found. Please select one : \n");
+        printf("Multiple contacts Found. Please select one :\n");
         for(i = 0; i < f_count; i++)
         {
             printf("%d. Name: %s, Phone: %s, Email: %s\n", i + 1, addressBook -> contacts[found_i[i]].name, addressBook -> contacts[found_i[i]].phone, addressBook -> contacts[found_i[i]].email);
@@ -443,7 +459,7 @@ void editContact(AddressBook *addressBook)
 
         if(serial < 1 || serial > f_count)
         {
-            printf("Invalid Serial Number!!!\n");
+            printf("Invalid Serial Number!!!\n\n");
             return;
         }
 
@@ -470,7 +486,7 @@ void editContact(AddressBook *addressBook)
             printf("Enter new name : ");
             scanf(" %[^\n]", edit);
             strcpy(addressBook->contacts[index].name, edit);
-            printf("Name updated successfully.\n");
+            printf("Name updated successfully.\n\n");
             break;
 
         case 2:
@@ -483,7 +499,7 @@ void editContact(AddressBook *addressBook)
                 scanf(" %[^\n]", edit);
             }
             strcpy(addressBook->contacts[index].phone, edit);
-            printf("Phone Number updated successfully.\n");
+            printf("Phone Number updated successfully.\n\n");
             break;
         
         case 3:
@@ -496,11 +512,11 @@ void editContact(AddressBook *addressBook)
                 scanf(" %[^\n]", edit);
             }
             strcpy(addressBook->contacts[index].email, edit);
-            printf("Email ID updated successfully.\n");
+            printf("Email ID updated successfully.\n\n");
             break;    
         
         default:
-            printf("Invalid Choice !!!\n");
+            printf("Invalid Choice !!!\n\n");
             break;
     }
     
@@ -569,12 +585,14 @@ int contact_search(AddressBook *addressBook, int s_choice, int *found_i)
 
 void deleteContact(AddressBook *addressBook)
 {
+    printf("\n******************************************************\n");
+	printf("                Delete Contact\n");
+	printf("******************************************************\n");
     /* Define the logic for deletecontact */
-
     //condition for Empty Address Book
     if (addressBook -> contactCount == 0)
     {
-        printf("Address Book is empty!!!\n");
+        printf("Address Book is empty!!!\n\n");
         return;
     }
     
@@ -595,7 +613,7 @@ void deleteContact(AddressBook *addressBook)
     
     if(f_count == 0)
     {
-        printf("Contact not found!!!\n");
+        printf("Contact not found!!!\n\n");
         return;
     }
 
@@ -613,7 +631,7 @@ void deleteContact(AddressBook *addressBook)
 
         if(serial < 1 || serial > f_count)
         {
-            printf("Invalid serial number!!!\n");
+            printf("Invalid serial number!!!\n\n");
             return;
         }
 
@@ -635,12 +653,12 @@ void deleteContact(AddressBook *addressBook)
 
             //deleting unwanted contactCount to save memory
             addressBook -> contactCount--;
-            printf("Contact Deleted Successfully.\n");
+            printf("Contact Deleted Successfully.\n\n");
         }
         
         else
         {
-            printf("Deletion Cancelled!!!\n");
+            printf("Deletion Cancelled!!!\n\n");
         }
 
     }
@@ -665,13 +683,13 @@ void deleteContact(AddressBook *addressBook)
 
             //deleting unwanted contactCount to save memory
             addressBook -> contactCount--;
-            printf("Contact Deleted Successfully.\n");
+            printf("Contact Deleted Successfully.\n\n");
         }
         
         //if any charcater other than 'Y' or 'y' is pressed it will cancel the process
         else
         {
-            printf("Deletion Cancelled!!!\n");
+            printf("Deletion Cancelled!!!\n\n");
         }
     }
         

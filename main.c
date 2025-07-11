@@ -24,6 +24,11 @@ int main()
 	addressBook.contactCount = 0;
     initialize(&addressBook); // Initialize the address book
 
+	printf("*************************************************************************\n");
+	printf("			Address Book Project\n");
+	printf("                                                By,\n");
+	printf("						Nestin Gregorios Sunny\n");
+	printf("*************************************************************************\n");		
     do 
     {
 		printf("\nAddress Book Menu:\n");
